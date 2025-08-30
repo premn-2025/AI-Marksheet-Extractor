@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Marksheet Extractor</title>
+    <!-- FIX: Correct CSS path -->
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>AI Marksheet Extractor</h1>
+                <p>Upload your marksheet and get structured data with confidence scores</p>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <h2><i class="fas fa-upload"></i> Single File Upload</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop your marksheet here or <span class="browse-link">browse</span></p>
+                            <!-- FIX: Add WebP support -->
+                            <small>Supported formats: JPG, PNG, PDF, WebP (Max 10MB)</small>
+                        </div>
+                        <!-- FIX: Add .webp to accept attribute -->
+                        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf,.webp" hidden>
+                    </div>
+                    <button class="btn btn-primary" id="extractBtn" disabled>
+                        <i class="fas fa-magic"></i> Extract Data
+                    </button>
+                </div>
+
+                <!-- Batch Upload Section -->
+                <div class="upload-card">
+                    <h2><i class="fas fa-layer-group"></i> Batch Upload</h2>
+                    <div class="upload-area" id="batchUploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-files"></i>
+                            <p>Upload multiple marksheets</p>
+                            <small>Max 10 files per batch</small>
+                        </div>
+                        <!-- FIX: Add .webp to accept attribute -->
+                        <input type="file" id="batchFileInput" accept=".jpg,.jpeg,.png,.pdf,.webp" multiple hidden>
+                    </div>
+                    <button class="btn btn-secondary" id="batchExtractBtn" disabled>
+                        <i class="fas fa-magic"></i> Extract All
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-card">
+                    <div class="spinner"></div>
+                    <h3>Processing your marksheet...</h3>
+                    <p>AI is analyzing and extracting data</p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2><i class="fas fa-chart-line"></i> Extraction Results</h2>
+                    <div class="results-actions">
+                        <button class="btn btn-outline" id="downloadBtn">
+                            <i class="fas fa-download"></i> Download JSON
+                        </button>
+                        <button class="btn btn-outline" id="newExtractionBtn">
+                            <i class="fas fa-plus"></i> New Extraction
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards" id="summaryCards">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Detailed Results -->
+                <div class="result-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="formatted">
+                            <i class="fas fa-eye"></i> Formatted View
+                        </button>
+                        <button class="tab-btn" data-tab="json">
+                            <i class="fas fa-code"></i> Raw JSON
+                        </button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="formattedTab">
+                            <div class="formatted-results" id="formattedResults">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane" id="jsonTab">
+                            <div class="json-container">
+                                <pre id="jsonOutput"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Built with FastAPI + Gemini AI | <a href="/docs" target="_blank">API Documentation</a></p>
+        </footer>
+    </div>
+
+    <!-- FIX: Correct JS path -->
+    <script src="/static/main.js"></script>
+</body>
+</html>
